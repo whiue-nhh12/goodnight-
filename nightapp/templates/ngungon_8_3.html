@@ -35,38 +35,6 @@
             justify-content: center;
             align-items: center;
         }
-        .upload-btn-wrapper {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            pointer-events: auto;
-            display: none; 
-        }
-        .btn {
-            border: 2px solid #ff69b4;
-            color: #ff69b4;
-            background-color: rgba(0,0,0,0.5);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .btn:hover {
-            background-color: #ff69b4;
-            color: white;
-            box-shadow: 0 0 15px #ff69b4;
-        }
-        .upload-btn-wrapper input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-            height: 100%;
-        }
         #instruction {
             color: #ffb6c1;
             font-size: 1.5rem;
@@ -81,6 +49,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             text-align: center;
+            transition: opacity 1s ease;
         }
         @keyframes pulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
@@ -94,10 +63,6 @@
     <div id="canvas-container"></div>
 
     <div id="ui-layer">
-        <div class="upload-btn-wrapper" id="upload-wrapper">
-            <button class="btn">Thêm ảnh của bạn</button>
-            <input type="file" id="upload-input" accept="image/*" multiple />
-        </div>
         <div id="instruction">Ấn giữ màn hình để bắt đầu</div>
     </div>
 
@@ -163,12 +128,8 @@
             photoGroup.visible = false;
             scene.add(photoGroup);
 
-            // --- THAY ĐỔI Ở ĐÂY: LOAD ẢNH TỪ STATIC ---
-            // Bước 1: Khai báo đường dẫn gốc của static image
-            const staticBaseUrl = "{% static '/app/image/' %}";
-            
-            // Bước 2: Danh sách tên file ảnh bạn đã để trong thư mục static/image/
-            // Bạn hãy sửa lại tên file cho đúng với thực tế (ví dụ: '1.jpg', 'hoa.png'...)
+            // LOAD ẢNH TỪ STATIC
+            const staticBaseUrl = "{% static 'app/image/' %}";
             const myImages = [
                 'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg',
                 'img6.jpg', 'img7.jpg', 'img8.jpg', 'img9.jpg', 'img10.jpg',
@@ -176,14 +137,12 @@
                 'img16.jpg', 'img17.jpg', 'img18.jpg', 'img19.jpg', 'img20.jpg'
             ];
 
-            // Bước 3: Loop qua danh sách và add vào Sphere
             myImages.forEach((fileName, index) => {
                 const fullUrl = staticBaseUrl + fileName;
                 addPhotoToSphere(fullUrl, index, myImages.length);
             });
 
             window.addEventListener('resize', onWindowResize);
-            document.getElementById('upload-input').addEventListener('change', handleUpload);
             
             const instructionBtn = document.getElementById('instruction');
             instructionBtn.addEventListener('mousedown', startSequence);
@@ -355,7 +314,7 @@
             const music = document.getElementById("bgMusic");
             if (music) { music.play().catch(e => console.log(e)); }
             document.getElementById('instruction').style.opacity = '0';
-            document.getElementById('instruction').style.pointerEvents = 'none';
+            
             morphParticles(positionsState.text1, colorsState.text, 2500)
                 .onComplete(() => {
                     setTimeout(() => {
@@ -364,7 +323,7 @@
                                 setTimeout(() => {
                                     morphParticles(positionsState.text3, colorsState.text, 2000)
                                         .onComplete(() => {
-                                            setTimeout(() => { transitionToSphere(); }, 2000);
+                                            setTimeout(() => { transitionToSphere(); }, 1500);
                                         });
                                 }, 1500);
                             });
@@ -389,19 +348,69 @@
 
         function transitionToSphere() {
             appState = 'sphere';
-            morphParticles(positionsState.sphere, colorsState.sphere, 2500);
-            photoGroup.visible = true;
-            photoGroup.scale.set(0.01, 0.01, 0.01);
-            new TWEEN.Tween(photoGroup.scale).to({ x: 1, y: 1, z: 1 }, 3000).easing(TWEEN.Easing.Elastic.Out)
-                .onComplete(() => { document.getElementById('upload-wrapper').style.display = 'block'; })
-                .start();
+            
+            // Tạo layer fade to black
+            const fadeLayer = document.createElement('div');
+            fadeLayer.id = 'fade-to-black';
+            fadeLayer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #000;
+                opacity: 0;
+                z-index: 100;
+                pointer-events: none;
+                transition: opacity 2s ease-in-out;
+            `;
+            document.body.appendChild(fadeLayer);
+
+            // Fade to black
+            setTimeout(() => {
+                fadeLayer.style.opacity = '1';
+            }, 50);
+
+            // Fade back from black
+            setTimeout(() => {
+                fadeLayer.style.transition = 'opacity 1.5s ease-in-out';
+                fadeLayer.style.opacity = '0';
+                setTimeout(() => fadeLayer.remove(), 1500);
+            }, 2050);
+
+            // Morph các hạt background sang dạng cầu tán xạ mượt
+            setTimeout(() => {
+                morphParticles(positionsState.sphere, colorsState.sphere, 3000);
+            }, 1500);
+            
+            // Hiện quả cầu ảnh với hiệu ứng mượt
+            setTimeout(() => {
+                photoGroup.visible = true;
+                photoGroup.scale.set(0.001, 0.001, 0.001);
+                photoGroup.rotation.y = Math.PI;
+
+                new TWEEN.Tween(photoGroup.scale)
+                    .to({ x: 1, y: 1, z: 1 }, 4000)
+                    .easing(TWEEN.Easing.Quadratic.Out)
+                    .start();
+
+                new TWEEN.Tween(photoGroup.rotation)
+                    .to({ y: 0 }, 4000)
+                    .easing(TWEEN.Easing.Quadratic.Out)
+                    .start();
+            }, 2000);
         }
 
-        function addPhotoToSphere(url, index, total, isNew = false) {
+        function addPhotoToSphere(url, index, total) {
             const textureLoader = new THREE.TextureLoader();
             textureLoader.setCrossOrigin("Anonymous"); 
             textureLoader.load(url, function(texture) {
-                const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true, opacity: isNew ? 0 : 0.9 });
+                const material = new THREE.MeshBasicMaterial({ 
+                    map: texture, 
+                    side: THREE.DoubleSide, 
+                    transparent: true, 
+                    opacity: 0.9 
+                });
                 const geometry = new THREE.PlaneGeometry(180, 240); 
                 const plane = new THREE.Mesh(geometry, material);
                 const radius = 550; 
@@ -412,25 +421,7 @@
                 plane.position.z = radius * Math.cos(phi);
                 plane.lookAt(0, 0, 0);
                 photoGroup.add(plane);
-                if (isNew) {
-                    plane.position.copy(camera.position); plane.translateZ(-300); 
-                    new TWEEN.Tween(material).to({ opacity: 0.9 }, 1000).start();
-                    new TWEEN.Tween(plane.position).to({
-                        x: radius * Math.cos(theta) * Math.sin(phi), y: radius * Math.sin(theta) * Math.sin(phi), z: radius * Math.cos(phi)
-                    }, 2000).easing(TWEEN.Easing.Cubic.Out).start();
-                }
             });
-        }
-
-        function handleUpload(event) {
-            const files = event.target.files;
-            if (!files.length) return;
-            const currentTotal = photoGroup.children.length;
-            const newTotal = currentTotal + files.length;
-            for (let i = 0; i < files.length; i++) {
-                const url = URL.createObjectURL(files[i]);
-                addPhotoToSphere(url, currentTotal + i, newTotal, true);
-            }
         }
 
         function onWindowResize() {
@@ -460,9 +451,8 @@
                 const time = Date.now() * 0.001;
                 if (appState === 'initial' || appState === 'sphere') {
                     particleSystem.scale.setScalar(1 + Math.sin(time * 3) * 0.05);
-                } else {
-                    particleSystem.scale.lerp(new THREE.Vector3(1,1,1), 0.1);
                 }
+
                 if (appState === 'initial' || appState === 'text') {
                     const pos = particleSystem.geometry.attributes.position.array;
                     const cosA = Math.cos(0.0015);
