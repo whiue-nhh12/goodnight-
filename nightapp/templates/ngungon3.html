@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WOW - Matrix Heart</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0,255,0,0.1) 50%, 
+                transparent 100%);
+            animation: matrixScan 3s linear infinite;
+        }
+        
+        @keyframes matrixScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .heart-matrix {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 100px;
+            color: #00ff00;
+            text-shadow: 
+                0 0 20px #00ff00,
+                0 0 40px #00ff00,
+                0 0 60px #00ff00;
+            animation: matrixHeart 2s ease-in-out infinite;
+            z-index: 10;
+        }
+        
+        @keyframes matrixHeart {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.3);
+                filter: hue-rotate(180deg);
+            }
+        }
+        
+        .code-rain {
+            position: absolute;
+            color: #00ff00;
+            font-size: 20px;
+            animation: codeFall 3s linear infinite;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        @keyframes codeFall {
+            0% { 
+                transform: translateY(-100vh);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        
+        .message {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00ff00;
+            font-size: 24px;
+            text-align: center;
+            animation: messageFlicker 0.5s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px #00ff00;
+        }
+        
+        @keyframes messageFlicker {
+            from { opacity: 1; }
+            to { opacity: 0.7; }
+        }
+        
+        .glitch {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 100px;
+            color: #ff0000;
+            animation: glitchEffect 0.3s ease-in-out infinite;
+            z-index: 5;
+        }
+        
+        @keyframes glitchEffect {
+            0%, 100% { 
+                transform: translate(-50%, -50%);
+                text-shadow: 2px 0 #ff0000, -2px 0 #00ff00;
+            }
+            25% { 
+                transform: translate(-52%, -50%);
+                text-shadow: -2px 0 #ff0000, 2px 0 #00ff00;
+            }
+            50% { 
+                transform: translate(-48%, -50%);
+                text-shadow: 2px 0 #ff0000, -2px 0 #00ff00;
+            }
+            75% { 
+                transform: translate(-50%, -52%);
+                text-shadow: -2px 0 #ff0000, 2px 0 #00ff00;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="glitch">💖</div>
+    <div class="heart-matrix">💖</div>
+    <div class="message">SYSTEM: CHÚC TÌNH YÊU NGỦ NGON - DREAM MODE ACTIVATED</div>
+     <button class="music-control" onclick="toggleMusic()"> Bật/Nhạc</button>
+    <audio id="matrixMusic" loop>
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+    </audio>
+    
+    <script>
+        const characters = "<3<3<3<3<3<3<3<3";
+        
+        function createCodeRain() {
+            setInterval(() => {
+                for (let i = 0; i < 3; i++) {
+                    const rain = document.createElement('div');
+                    rain.className = 'code-rain';
+                    rain.textContent = characters[Math.floor(Math.random() * characters.length)];
+                    rain.style.left = Math.random() * 100 + '%';
+                    rain.style.animationDelay = Math.random() * 3 + 's';
+                    document.body.appendChild(rain);
+                    
+                    setTimeout(() => rain.remove(), 3000);
+                }
+            }, 200);
+        }
+     function toggleMusic() {
+    var music = document.getElementById('matrixMusic');
+    if (music.paused) music.play();
+    else music.pause();
+}
+        window.onload = function() {
+            document.getElementById('matrixMusic').play();
+            createCodeRain();
+        };
+    </script>
+</body>
+</html>

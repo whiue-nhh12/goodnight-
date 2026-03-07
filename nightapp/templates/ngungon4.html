@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QUANTUM PARTICLE COLLISION</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            animation: particleCollision 3s linear infinite;
+            box-shadow: 0 0 20px #fff;
+        }
+        
+        @keyframes particleCollision {
+            0% { 
+                transform: translate(-200px, 0) scale(1);
+                opacity: 1;
+            }
+            45% { 
+                transform: translate(0, 0) scale(2);
+                opacity: 1;
+            }
+            50% { 
+                transform: translate(0, 0) scale(0.1);
+                opacity: 0;
+            }
+            55% { 
+                transform: translate(0, 0) scale(3);
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(200px, 0) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .explosion {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            border-radius: 50%;
+            animation: explosion 0.5s ease-out infinite;
+            box-shadow: 0 0 50px #fff;
+        }
+        
+        @keyframes explosion {
+            0% { 
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(5);
+                opacity: 0;
+            }
+        }
+        
+        .energy-wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            animation: energyWave 1s ease-out infinite;
+        }
+        
+        @keyframes energyWave {
+            0% { 
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
+        }
+        
+        .message {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 26px;
+            text-align: center;
+            animation: messageGlow 1s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px #fff;
+        }
+        
+        @keyframes messageGlow {
+            from { text-shadow: 0 0 20px #fff; }
+            to { text-shadow: 0 0 40px #fff, 0 0 60px #fff; }
+        }
+    </style>
+</head>
+<body>
+    <div class="message">Chúc em có một đêm nghỉ ngơi ngon lành, tái tạo năng lượng cho ngày mai hiệu quả!</div>
+     <button class="music-control" onclick="toggleMusic()"> Bật/Nhạc</button>
+     <audio id="bgMusic" loop>
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+    </audio>
+    <script>
+        function createParticles() {
+            setInterval(() => {
+                // Particle 1 (left to right)
+                const particle1 = document.createElement('div');
+                particle1.className = 'particle';
+                particle1.style.top = '50%';
+                particle1.style.left = '0';
+                document.body.appendChild(particle1);
+                
+                // Particle 2 (right to left)
+                const particle2 = document.createElement('div');
+                particle2.className = 'particle';
+                particle2.style.top = '50%';
+                particle2.style.left = '100%';
+                particle2.style.transform = 'translateX(-100%)';
+                document.body.appendChild(particle2);
+                
+                // Explosion effect
+                setTimeout(() => {
+                    const explosion = document.createElement('div');
+                    explosion.className = 'explosion';
+                    document.body.appendChild(explosion);
+                    
+                    const wave = document.createElement('div');
+                    wave.className = 'energy-wave';
+                    document.body.appendChild(wave);
+                    
+                    setTimeout(() => {
+                        explosion.remove();
+                        wave.remove();
+                    }, 1000);
+                }, 1500);
+                
+                setTimeout(() => {
+                    particle1.remove();
+                    particle2.remove();
+                }, 3000);
+            }, 2000);
+        }
+        function toggleMusic() {
+    var music = document.getElementById('matrixMusic');
+    if (music.paused) music.play();
+    else music.pause();
+}
+        window.onload = createParticles;
+    </script>
+</body>
+</html>

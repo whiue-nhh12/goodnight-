@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CUTE CARTOON GALAXY WITH MUSIC</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+            overflow: hidden;
+            font-family: 'Comic Sans MS', cursive;
+        }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            animation: planetFloat 8s ease-in-out infinite;
+        }
+        
+        .planet-1 {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ff6b6b, #ff8e8e);
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .planet-2 {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #4ecdc4, #7fefef);
+            top: 60%;
+            right: 25%;
+            animation-delay: 2s;
+        }
+        
+        .planet-3 {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ffe66d, #fff4a3);
+            bottom: 20%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes planetFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .planet-face {
+            position: absolute;
+            font-size: 30px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: faceBlink 3s ease-in-out infinite;
+        }
+        
+        @keyframes faceBlink {
+            0%, 90%, 100% { transform: translate(-50%, -50%) scale(1); }
+            95% { transform: translate(-50%, -50%) scale(0.8); }
+        }
+        
+        .star {
+            position: absolute;
+            font-size: 20px;
+            color: #fff;
+            animation: starTwinkle 2s ease-in-out infinite;
+        }
+        
+        @keyframes starTwinkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+        }
+        
+        .rocket {
+            position: absolute;
+            font-size: 40px;
+            animation: rocketFly 6s linear infinite;
+        }
+        
+        @keyframes rocketFly {
+            0% { 
+                transform: translateX(-100px) rotate(0deg);
+                left: 0;
+                top: 50%;
+            }
+            50% { 
+                transform: translateX(50vw) rotate(10deg);
+                top: 30%;
+            }
+            100% { 
+                transform: translateX(100vw) rotate(0deg);
+                top: 50%;
+            }
+        }
+        
+        .message {
+            position: absolute;
+            top: 85%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 28px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: messageBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes messageBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+            animation: buttonGlow 1s ease-in-out infinite alternate;
+        }
+        
+        @keyframes buttonGlow {
+            from { box-shadow: 0 0 10px #fff; }
+            to { box-shadow: 0 0 20px #fff, 0 0 30px #fff; }
+        }
+    </style>
+</head>
+<body>
+    <div class="planet planet-1">
+        <div class="planet-face">😊</div>
+    </div>
+    <div class="planet planet-2">
+        <div class="planet-face">😄</div>
+    </div>
+    <div class="planet planet-3">
+        <div class="planet-face">🤩</div>
+    </div>
+    <div class="rocket">🚀</div>
+    <div class="message">NGỦ NGON NGỦ NGON NGỦ NGON A NHON A NHON🌟</div>
+    
+    <button class="music-control" onclick="toggleMusic()">�� Bật/Nhạc</button>
+    
+    <audio id="spaceMusic" loop>
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+    </audio>
+    
+    <script>
+        function createStars() {
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.textContent = '⭐';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(star);
+            }
+        }
+        
+        function toggleMusic() {
+            const music = document.getElementById('spaceMusic');
+            if (music.paused) {
+                music.play();
+                document.querySelector('.music-control').textContent = '🔇 Tắt/Nhạc';
+            } else {
+                music.pause();
+                document.querySelector('.music-control').textContent = '🎵 Bật/Nhạc';
+            }
+        }
+        
+        window.onload = function() {
+            createStars();
+            // Tự động phát nhạc khi load trang
+            document.getElementById('spaceMusic').play();
+            document.querySelector('.music-control').textContent = '�� Tắt/Nhạc';
+        };
+    </script>
+</body>
+</html>

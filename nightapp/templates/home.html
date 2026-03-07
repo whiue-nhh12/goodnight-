@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Slot Chúc Ngủ Ngon - Hiếu</title>
+  <style>
+    body {
+      background: #0f1020;
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px 10px 10px 10px;
+      color: #fff;
+      overflow: hidden;
+    }
+    .bg-glow {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle at 50% 30%, #fff2 0%, #0f1020 80%);
+      animation: bgPulse 6s ease-in-out infinite alternate;
+    }
+    @keyframes bgPulse {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 2;
+      font-size: 18px;
+      opacity: 0.7;
+      animation: particleMove 3s linear infinite;
+    }
+    @keyframes particleMove {
+      0% { transform: translateY(0) scale(1); opacity: 0.7;}
+      80% { opacity: 1;}
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0;}
+    }
+    h1 {
+      font-size: 40px;
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px #fff, 0 0 40px #0ff, 2px 2px 8px #000;
+      letter-spacing: 2px;
+      animation: textGlow 2s infinite alternate;
+    }
+    @keyframes textGlow {
+      from { text-shadow: 0 0 20px #fff, 0 0 40px #0ff, 2px 2px 8px #000; }
+      to { text-shadow: 0 0 40px #0ff, 0 0 80px #fff, 2px 2px 16px #000; }
+    }
+    .slot-machine {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(20, 20, 40, 0.95);
+      padding: 30px 10px;
+      border: 6px solid #0ff;
+      border-radius: 30px;
+      width: 95vw;
+      max-width: 540px;
+      margin: 0 auto;
+      box-shadow: 0 0 60px #0ff, 0 0 20px #fff;
+      position: relative;
+      z-index: 1;
+      transition: box-shadow 0.3s;
+    }
+    .slot-machine.wow {
+      box-shadow: 0 0 120px #fff, 0 0 60px #0ff, 0 0 20px #fff;
+      animation: slotWow 0.5s;
+    }
+    @keyframes slotWow {
+      0% { box-shadow: 0 0 0 #fff, 0 0 0 #0ff; }
+      100% { box-shadow: 0 0 120px #fff, 0 0 60px #0ff; }
+    }
+    .reel {
+      background: linear-gradient(180deg, #fff 60%, #e0e0ff 100%);
+      color: #111;
+      width: 120px;
+      height: 100px;
+      margin: 0 10px;
+      font-size: 38px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 18px;
+      box-shadow: 0 0 20px #0ff, 0 0 10px #fff, inset 0 0 20px #0ff;
+      border: 3px solid #0ff;
+      font-weight: bold;
+      transition: box-shadow 0.2s, transform 0.2s;
+      animation: reelIdle 2s infinite alternate;
+      position: relative;
+      z-index: 2;
+    }
+    .reel.spin {
+      animation: reelSpin 0.15s linear infinite;
+      box-shadow: 0 0 40px #fff, 0 0 20px #0ff, 0 0 10px #fff;
+      transform: scale(1.1) rotate(-2deg);
+    }
+    @keyframes reelSpin {
+      0% { filter: brightness(1.2) blur(0px);}
+      50% { filter: brightness(1.5) blur(2px);}
+      100% { filter: brightness(1.2) blur(0px);}
+    }
+    @keyframes reelIdle {
+      0% { box-shadow: 0 0 20px #0ff, 0 0 10px #fff, inset 0 0 20px #0ff;}
+      100% { box-shadow: 0 0 30px #fff, 0 0 20px #0ff, inset 0 0 30px #fff;}
+    }
+    .lever {
+      margin-top: 40px;
+      width: 40px;
+      height: 120px;
+      background: linear-gradient(to bottom, #e60000, #b30000 80%, #fff 100%);
+      border-radius: 20px;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      cursor: pointer;
+      box-shadow: 0 0 30px #ff0, 0 0 10px #fff;
+      transition: box-shadow 0.2s, transform 0.2s;
+      z-index: 2;
+    }
+    .lever:active {
+      transform: rotate(20deg) scale(1.1);
+      box-shadow: 0 0 60px #ff0, 0 0 20px #fff;
+    }
+    .knob {
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, #ff0, #cc0 80%, #fff 100%);
+      border-radius: 50%;
+      position: absolute;
+      top: -25px;
+      left: 5px;
+      border: 2px solid #333;
+      box-shadow: 0 0 20px #ff0, 0 0 10px #fff;
+    }
+    .music-btn {
+      margin-top: 30px;
+      padding: 12px 28px;
+      font-size: 18px;
+      border: none;
+      background: linear-gradient(90deg, #0ff, #00f, #0ff);
+      color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #0ff, 0 0 10px #fff;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: background 0.3s, box-shadow 0.3s;
+      position: relative;
+      z-index: 2;
+      animation: btnPulse 2s infinite alternate;
+    }
+    @keyframes btnPulse {
+      0% { box-shadow: 0 0 10px #0ff; }
+      100% { box-shadow: 0 0 30px #0ff, 0 0 10px #fff; }
+    }
+    .note {
+      font-size: 14px;
+      color: #ffd;
+      margin-top: 10px;
+    }
+    .confetti {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      font-size: 30px;
+      animation: confettiFall 1.2s linear forwards;
+    }
+    @keyframes confettiFall {
+      0% { opacity: 1; transform: translateY(-50px) scale(1);}
+      100% { opacity: 0; transform: translateY(100vh) scale(1.5);}
+    }
+    @media (max-width: 600px) {
+      .slot-machine { width: 99vw; padding: 10px 0; }
+      .reel { width: 80px; height: 60px; font-size: 24px;}
+      h1 { font-size: 24px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <h1>🎉 Máy Slot Chúc Ngủ Ngon {{ request.user }}
+✨</h1>
+
+  <div class="slot-machine" id="slotMachine">
+    <div class="reel" id="reel1">😴</div>
+    <div class="reel" id="reel2">🌙</div>
+    <div class="reel" id="reel3">💤</div>
+  </div>
+
+  <div class="lever" id="lever" onclick="pullLever()">
+    <div class="knob"></div>
+  </div>
+
+  <button class="music-btn" onclick="playMusic()">🎵 Bật nhạc nền</button>
+
+  <audio id="spinSound" src="{% static 'spin.mp3' %}" preload="auto"></audio>
+  <audio id="bgMusic" src="{% static 'chicken.mp3' %}" preload="auto" loop></audio>
+  <audio id="endSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_a22b928f42.mp3" preload="auto"></audio>
+
+  <script>
+    // Particle background
+    function createParticles() {
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.textContent = ['✨','🌟','💫','⭐','🟡','🔵'][Math.floor(Math.random()*6)];
+        p.style.left = Math.random()*100 + 'vw';
+        p.style.top = (Math.random()*100) + 'vh';
+        p.style.animationDuration = (2 + Math.random()*2) + 's';
+        p.style.fontSize = (16 + Math.random()*18) + 'px';
+        document.body.appendChild(p);
+        setTimeout(()=>p.remove(), 4000);
+      }
+      setTimeout(createParticles, 1200);
+    }
+    createParticles();
+
+    // Confetti
+    function showConfetti() {
+      for (let i = 0; i < 20; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.textContent = ['✨','🌟','💫','⭐','🎉','🎊'][Math.floor(Math.random()*6)];
+        c.style.left = (10 + Math.random()*80) + 'vw';
+        c.style.top = '-30px';
+        c.style.animationDuration = (0.8 + Math.random()*0.7) + 's';
+        c.style.fontSize = (24 + Math.random()*18) + 'px';
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(), 1500);
+      }
+    }
+
+    const links = [
+      "ngungon1",
+      "ngungon2",
+      "ngungon3",
+      "ngungon4",
+      "ngungon5",
+      "ngungon6",
+      "ngungon7"
+    ];
+    function getRandomEmoji() {
+      const emojis = ["🌙", "😴", "💤", "✨", "🌟", "🌌", "🛌", "😇", "😻", "🥱"];
+      return emojis[Math.floor(Math.random() * emojis.length)];
+    }
+
+    function playMusic() {
+      const bgMusic = document.getElementById("bgMusic");
+      bgMusic.play().catch(error => {
+        alert("🎵 Hãy chạm vào màn hình để bật nhạc nhé!");
+      });
+    }
+
+    function pullLever() {
+      const reel1 = document.getElementById("reel1");
+      const reel2 = document.getElementById("reel2");
+      const reel3 = document.getElementById("reel3");
+      const spinSound = document.getElementById("spinSound");
+      const endSound = document.getElementById("endSound");
+      const bgMusic = document.getElementById("bgMusic");
+      const slotMachine = document.getElementById("slotMachine");
+      const lever = document.getElementById("lever");
+
+      bgMusic.play().catch(()=>{});
+      lever.style.transform = "rotate(30deg) scale(1.1)";
+      setTimeout(()=>{lever.style.transform = "";}, 400);
+
+      let count = 0;
+      const maxCount = 30;
+      spinSound.currentTime = 0;
+      spinSound.play();
+
+      // Hiệu ứng rung và phát sáng khi quay
+      reel1.classList.add('spin');
+      reel2.classList.add('spin');
+      reel3.classList.add('spin');
+      slotMachine.classList.add('wow');
+
+      const interval = setInterval(() => {
+        reel1.textContent = getRandomEmoji();
+        reel2.textContent = getRandomEmoji();
+        reel3.textContent = getRandomEmoji();
+        count++;
+        if (count >= maxCount) {
+          clearInterval(interval);
+          setTimeout(()=>{
+            reel1.classList.remove('spin');
+            reel2.classList.remove('spin');
+            reel3.classList.remove('spin');
+            slotMachine.classList.remove('wow');
+            endSound.currentTime = 0;
+            endSound.play();
+            showConfetti();
+            const target = links[Math.floor(Math.random() * links.length)];
+            setTimeout(() => {
+              window.location.href = target;
+            }, 1200);
+          }, 200);
+        }
+      }, 70);
+    }
+  </script>
+</body>
+</html>
