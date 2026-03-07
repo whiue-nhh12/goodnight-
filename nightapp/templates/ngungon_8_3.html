@@ -113,6 +113,7 @@
         // --- KHỞI TẠO BIẾN TOÀN CỤC ---
         let scene, camera, renderer, controls;
         let particleSystem, photoGroup;
+        let shootingStars = []; 
         
         const NUM_PARTICLES = 25000;
         const HEART_PARTICLES = 5000;  
@@ -141,7 +142,6 @@
             scene = new THREE.Scene();
             scene.fog = new THREE.FogExp2(0x050005, 0.0006); 
 
-            // Camera lùi ra một chút để nhìn bao quát hơn
             camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 5000);
             camera.position.z = 1300; 
 
@@ -153,20 +153,34 @@
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true;
             controls.dampingFactor = 0.05;
-            
-            // Camera đứng im để điều khiển góc nhìn bằng chuột
             controls.autoRotate = false; 
 
             generateMorphTargets();
             createParticleSystem();
+            createShootingStars(); 
 
             photoGroup = new THREE.Group();
             photoGroup.visible = false;
             scene.add(photoGroup);
 
-            for(let i=0; i<20; i++) {
-                addPhotoToSphere(`https://picsum.photos/seed/${i+50}/200/300`, i, 20);
-            }
+            // --- THAY ĐỔI Ở ĐÂY: LOAD ẢNH TỪ STATIC ---
+            // Bước 1: Khai báo đường dẫn gốc của static image
+            const staticBaseUrl = "{% static '/app/image/' %}";
+            
+            // Bước 2: Danh sách tên file ảnh bạn đã để trong thư mục static/image/
+            // Bạn hãy sửa lại tên file cho đúng với thực tế (ví dụ: '1.jpg', 'hoa.png'...)
+            const myImages = [
+                'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg',
+                'img6.jpg', 'img7.jpg', 'img8.jpg', 'img9.jpg', 'img10.jpg',
+                'img11.jpg', 'img12.jpg', 'img13.jpg', 'img14.jpg', 'img15.jpg',
+                'img16.jpg', 'img17.jpg', 'img18.jpg', 'img19.jpg', 'img20.jpg'
+            ];
+
+            // Bước 3: Loop qua danh sách và add vào Sphere
+            myImages.forEach((fileName, index) => {
+                const fullUrl = staticBaseUrl + fileName;
+                addPhotoToSphere(fullUrl, index, myImages.length);
+            });
 
             window.addEventListener('resize', onWindowResize);
             document.getElementById('upload-input').addEventListener('change', handleUpload);
@@ -176,7 +190,6 @@
             instructionBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startSequence(); });
         }
 
-        // --- HÀM TẠO DỮ LIỆU BIẾN HÌNH ---
         function generateMorphTargets() {
             const colorHeart = new THREE.Color(0xff0000);       
             const colorText = new THREE.Color(0xff0055);        
@@ -185,15 +198,12 @@
 
             for (let i = 0; i < NUM_PARTICLES; i++) {
                 const i3 = i * 3;
-                
-                // --- TRẠNG THÁI BAN ĐẦU ---
                 if (i < HEART_PARTICLES) {
                     const t = Math.random() * Math.PI * 2;
                     const scale = 16;
                     positionsState.initial[i3] = scale * 16 * Math.pow(Math.sin(t), 3);
                     positionsState.initial[i3 + 1] = scale * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
                     positionsState.initial[i3 + 2] = (Math.random() - 0.5) * 40; 
-
                     colorsState.initial[i3] = colorHeart.r;
                     colorsState.initial[i3 + 1] = colorHeart.g;
                     colorsState.initial[i3 + 2] = colorHeart.b;
@@ -201,22 +211,17 @@
                     const r = 1400 * Math.cbrt(Math.random()); 
                     const theta = Math.random() * 2 * Math.PI;
                     const phi = Math.acos(2 * Math.random() - 1);
-
                     positionsState.initial[i3] = r * Math.sin(phi) * Math.cos(theta);
                     positionsState.initial[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
                     positionsState.initial[i3 + 2] = r * Math.cos(phi);
-
                     colorsState.initial[i3] = colorOrbit.r;
                     colorsState.initial[i3 + 1] = colorOrbit.g;
                     colorsState.initial[i3 + 2] = colorOrbit.b;
                 }
-
-                // --- TRẠNG THÁI CHỮ & QUẢ CẦU ---
                 if (i < TEXT_PARTICLES) {
                     colorsState.text[i3] = colorText.r;
                     colorsState.text[i3 + 1] = colorText.g;
                     colorsState.text[i3 + 2] = colorText.b;
-
                     if (i < HEART_PARTICLES) {
                         positionsState.sphere[i3] = positionsState.initial[i3]; 
                         positionsState.sphere[i3+1] = positionsState.initial[i3+1];
@@ -235,66 +240,46 @@
                         const phi = Math.acos(2 * Math.random() - 1);
                         return { x: r * Math.sin(phi) * Math.cos(theta), y: r * Math.sin(phi) * Math.sin(theta), z: r * Math.cos(phi) };
                     };
-                    
                     let p1 = getRandomBg(); positionsState.text1[i3] = p1.x; positionsState.text1[i3+1] = p1.y; positionsState.text1[i3+2] = p1.z;
                     let p2 = getRandomBg(); positionsState.text2[i3] = p2.x; positionsState.text2[i3+1] = p2.y; positionsState.text2[i3+2] = p2.z;
                     let p3 = getRandomBg(); positionsState.text3[i3] = p3.x; positionsState.text3[i3+1] = p3.y; positionsState.text3[i3+2] = p3.z;
-
                     colorsState.text[i3] = colorBgActive.r;
                     colorsState.text[i3 + 1] = colorBgActive.g;
                     colorsState.text[i3 + 2] = colorBgActive.b;
-
                     positionsState.sphere[i3] = 0; positionsState.sphere[i3+1] = 9999; positionsState.sphere[i3+2] = 0;
                     colorsState.sphere[i3] = 0; colorsState.sphere[i3+1] = 0; colorsState.sphere[i3+2] = 0;
                 }
             }
-
-            // Tạo các mảng điểm chữ
             const text1Points = getPointsFromText("Chúc Mừng", 250);
             const text2Points = getPointsFromText("Ngày Quốc Tế\nPhụ Nữ", 180);
-            const text3Points = getPointsFromText("Ngày 8\nTháng 3", 220);
-
+            const text3Points = getPointsFromText("Mùng 8 Tháng 3", 220);
             fillArrayWithPoints(positionsState.text1, text1Points, TEXT_PARTICLES);
             fillArrayWithPoints(positionsState.text2, text2Points, TEXT_PARTICLES);
             fillArrayWithPoints(positionsState.text3, text3Points, TEXT_PARTICLES);
         }
 
-        // THUẬT TOÁN TẠO CHỮ VÀ CĂN GIỮA
         function getPointsFromText(text, fontSize) {
             const width = 2048; 
             const height = 2048; 
             const canvas = document.createElement('canvas');
-            canvas.width = width; 
-            canvas.height = height;
+            canvas.width = width; canvas.height = height;
             const ctx = canvas.getContext('2d');
-            
-            ctx.fillStyle = '#000'; 
-            ctx.fillRect(0, 0, width, height);
-            
+            ctx.fillStyle = '#000'; ctx.fillRect(0, 0, width, height);
             ctx.font = `900 ${fontSize}px 'Segoe UI', Arial`; 
-            ctx.fillStyle = '#fff';
-            ctx.textAlign = 'center'; 
-            ctx.textBaseline = 'middle'; 
-            
-            ctx.lineWidth = 10; 
-            ctx.strokeStyle = '#fff';
-
+            ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; 
+            ctx.lineWidth = 10; ctx.strokeStyle = '#fff';
             const lines = text.split('\n');
             const lineHeight = fontSize * 1.2;
             const totalTextHeight = lines.length * lineHeight;
-            
             let currentY = (height / 2) - (totalTextHeight / 2) + (lineHeight / 2);
-            
             lines.forEach((line) => {
                 ctx.fillText(line, width / 2, currentY);
                 ctx.strokeText(line, width / 2, currentY); 
                 currentY += lineHeight;
             });
-
             const imgData = ctx.getImageData(0, 0, width, height).data;
             const finalPoints = [];
             const scale = 1400 / 2048; 
-
             for (let y = 0; y < height; y += 4) {
                 for (let x = 0; x < width; x += 4) {
                     const idx = (y * width + x) * 4; 
@@ -302,7 +287,6 @@
                         const x3D = (x - width / 2) * scale;
                         const y3D = -(y - height / 2) * scale;
                         const z3D = (Math.random() - 0.5) * 30;
-                        
                         finalPoints.push(new THREE.Vector3(x3D, y3D, z3D));
                     }
                 }
@@ -315,9 +299,7 @@
             for (let i = 0; i < limit; i++) {
                 const pointIndex = Math.floor((i / limit) * pointsList.length); 
                 const pt = pointsList[pointIndex]; 
-                array[i*3] = pt.x;
-                array[i*3+1] = pt.y;
-                array[i*3+2] = pt.z;
+                array[i*3] = pt.x; array[i*3+1] = pt.y; array[i*3+2] = pt.z;
             }
         }
 
@@ -325,44 +307,55 @@
             const geometry = new THREE.BufferGeometry();
             geometry.setAttribute('position', new THREE.BufferAttribute(positionsState.initial.slice(), 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colorsState.initial.slice(), 3));
-
             const canvas = document.createElement('canvas');
             canvas.width = 32; canvas.height = 32;
             const context = canvas.getContext('2d');
             const gradient = context.createRadialGradient(16, 16, 0, 16, 16, 16);
             gradient.addColorStop(0, 'rgba(255,255,255,1)');
             gradient.addColorStop(1, 'rgba(0,0,0,0)');
-            context.fillStyle = gradient;
-            context.fillRect(0, 0, 32, 32);
+            context.fillStyle = gradient; context.fillRect(0, 0, 32, 32);
             const texture = new THREE.Texture(canvas);
             texture.needsUpdate = true;
-
             const material = new THREE.PointsMaterial({
-                size: 9, 
-                map: texture,
-                vertexColors: true,
-                blending: THREE.AdditiveBlending,
-                transparent: true,
-                depthWrite: false
+                size: 9, map: texture, vertexColors: true, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false
             });
-
             particleSystem = new THREE.Points(geometry, material);
             scene.add(particleSystem);
         }
 
-        // --- HOẠT ẢNH CHUYỂN CẢNH ---
+        function createShootingStars() {
+            for (let i = 0; i < 8; i++) {
+                const geometry = new THREE.BufferGeometry();
+                const posArr = new Float32Array(2 * 3); 
+                geometry.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+                const material = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+                const star = new THREE.Line(geometry, material);
+                star.userData = { active: false, speed: 12 + Math.random() * 15 };
+                scene.add(star);
+                shootingStars.push(star);
+            }
+        }
+
+        function resetStar(star) {
+            const x = (Math.random() - 0.5) * 3000;
+            const y = 800 + Math.random() * 500;
+            const z = (Math.random() - 0.5) * 1000;
+            star.position.set(x, y, z);
+            star.material.opacity = 0.8;
+            star.userData.active = true;
+            const pos = star.geometry.attributes.position.array;
+            pos[0] = 0; pos[1] = 0; pos[2] = 0;
+            pos[3] = 120; pos[4] = 120; pos[5] = 0; 
+            star.geometry.attributes.position.needsUpdate = true;
+        }
+
         function startSequence() {
             if(appState !== 'initial') return;
             appState = 'text';
-
             const music = document.getElementById("bgMusic");
-            if (music) {
-                music.play().catch(error => console.log("Lỗi phát nhạc:", error));
-            }
-            
+            if (music) { music.play().catch(e => console.log(e)); }
             document.getElementById('instruction').style.opacity = '0';
             document.getElementById('instruction').style.pointerEvents = 'none';
-
             morphParticles(positionsState.text1, colorsState.text, 2500)
                 .onComplete(() => {
                     setTimeout(() => {
@@ -371,9 +364,7 @@
                                 setTimeout(() => {
                                     morphParticles(positionsState.text3, colorsState.text, 2000)
                                         .onComplete(() => {
-                                            setTimeout(() => {
-                                                transitionToSphere(); 
-                                            }, 2000);
+                                            setTimeout(() => { transitionToSphere(); }, 2000);
                                         });
                                 }, 1500);
                             });
@@ -384,81 +375,49 @@
         function morphParticles(targetPositions, targetColors, duration) {
             const positionAttr = particleSystem.geometry.attributes.position;
             const colorAttr = particleSystem.geometry.attributes.color;
-            
             const startPositions = new Float32Array(positionAttr.array);
             const startColors = new Float32Array(colorAttr.array);
-
-            return new TWEEN.Tween({ t: 0 })
-                .to({ t: 1 }, duration)
-                .easing(TWEEN.Easing.Cubic.InOut)
+            return new TWEEN.Tween({ t: 0 }).to({ t: 1 }, duration).easing(TWEEN.Easing.Cubic.InOut)
                 .onUpdate((obj) => {
                     for(let i = 0; i < NUM_PARTICLES * 3; i++) {
                         positionAttr.array[i] = THREE.MathUtils.lerp(startPositions[i], targetPositions[i], obj.t);
                         colorAttr.array[i] = THREE.MathUtils.lerp(startColors[i], targetColors[i], obj.t);
                     }
-                    positionAttr.needsUpdate = true;
-                    colorAttr.needsUpdate = true;
-                })
-                .start();
+                    positionAttr.needsUpdate = true; colorAttr.needsUpdate = true;
+                }).start();
         }
 
-        // --- KHỐI CẦU ẢNH ---
         function transitionToSphere() {
             appState = 'sphere';
-
             morphParticles(positionsState.sphere, colorsState.sphere, 2500);
-
             photoGroup.visible = true;
             photoGroup.scale.set(0.01, 0.01, 0.01);
-            
-            new TWEEN.Tween(photoGroup.scale)
-                .to({ x: 1, y: 1, z: 1 }, 3000)
-                .easing(TWEEN.Easing.Elastic.Out)
-                .onComplete(() => {
-                    document.getElementById('upload-wrapper').style.display = 'block';
-                })
+            new TWEEN.Tween(photoGroup.scale).to({ x: 1, y: 1, z: 1 }, 3000).easing(TWEEN.Easing.Elastic.Out)
+                .onComplete(() => { document.getElementById('upload-wrapper').style.display = 'block'; })
                 .start();
         }
 
         function addPhotoToSphere(url, index, total, isNew = false) {
             const textureLoader = new THREE.TextureLoader();
             textureLoader.setCrossOrigin("Anonymous"); 
-            
             textureLoader.load(url, function(texture) {
-                const material = new THREE.MeshBasicMaterial({ 
-                    map: texture, 
-                    side: THREE.DoubleSide,
-                    transparent: true,
-                    opacity: isNew ? 0 : 0.9
-                });
-                
-                const geometry = new THREE.PlaneGeometry(120, 160);
+                const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: true, opacity: isNew ? 0 : 0.9 });
+                const geometry = new THREE.PlaneGeometry(180, 240); 
                 const plane = new THREE.Mesh(geometry, material);
-
                 const radius = 550; 
                 const phi = Math.acos(1 - 2 * (index + 0.5) / total);
                 const theta = Math.PI * (1 + Math.sqrt(5)) * index;
-
                 plane.position.x = radius * Math.cos(theta) * Math.sin(phi);
                 plane.position.y = radius * Math.sin(theta) * Math.sin(phi);
                 plane.position.z = radius * Math.cos(phi);
                 plane.lookAt(0, 0, 0);
-
                 photoGroup.add(plane);
-
                 if (isNew) {
-                    plane.position.copy(camera.position);
-                    plane.translateZ(-300); 
-                    
+                    plane.position.copy(camera.position); plane.translateZ(-300); 
                     new TWEEN.Tween(material).to({ opacity: 0.9 }, 1000).start();
-                    new TWEEN.Tween(plane.position)
-                        .to({
-                            x: radius * Math.cos(theta) * Math.sin(phi),
-                            y: radius * Math.sin(theta) * Math.sin(phi),
-                            z: radius * Math.cos(phi)
-                        }, 2000)
-                        .easing(TWEEN.Easing.Cubic.Out)
-                        .start();
+                    new TWEEN.Tween(plane.position).to({
+                        x: radius * Math.cos(theta) * Math.sin(phi), y: radius * Math.sin(theta) * Math.sin(phi), z: radius * Math.cos(phi)
+                    }, 2000).easing(TWEEN.Easing.Cubic.Out).start();
                 }
             });
         }
@@ -466,10 +425,8 @@
         function handleUpload(event) {
             const files = event.target.files;
             if (!files.length) return;
-
             const currentTotal = photoGroup.children.length;
             const newTotal = currentTotal + files.length;
-
             for (let i = 0; i < files.length; i++) {
                 const url = URL.createObjectURL(files[i]);
                 addPhotoToSphere(url, currentTotal + i, newTotal, true);
@@ -487,25 +444,30 @@
             TWEEN.update();
             controls.update();
 
+            if (appState === 'sphere') {
+                shootingStars.forEach(star => {
+                    if (!star.userData.active && Math.random() < 0.015) { resetStar(star); }
+                    if (star.userData.active) {
+                        star.position.x -= star.userData.speed;
+                        star.position.y -= star.userData.speed;
+                        star.material.opacity -= 0.008;
+                        if (star.material.opacity <= 0) star.userData.active = false;
+                    }
+                });
+            }
+
             if (particleSystem) {
                 const time = Date.now() * 0.001;
-                
                 if (appState === 'initial' || appState === 'sphere') {
                     particleSystem.scale.setScalar(1 + Math.sin(time * 3) * 0.05);
                 } else {
                     particleSystem.scale.lerp(new THREE.Vector3(1,1,1), 0.1);
                 }
-
-                // CẢI TIẾN: Xoay hạt màu hồng liên tục ở cả cảnh Trái Tim và cảnh Hiện Chữ
                 if (appState === 'initial' || appState === 'text') {
                     const pos = particleSystem.geometry.attributes.position.array;
                     const cosA = Math.cos(0.0015);
                     const sinA = Math.sin(0.0015);
-                    
-                    // Nếu là lúc hiện chữ, bỏ qua 15.000 hạt tạo chữ, chỉ xoay phần nền
-                    // Nếu là lúc hiện tim, bỏ qua 5.000 hạt tạo tim, chỉ xoay phần nền
                     const startIdx = (appState === 'initial') ? HEART_PARTICLES : TEXT_PARTICLES;
-                    
                     for (let i = startIdx; i < NUM_PARTICLES; i++) {
                         const i3 = i * 3;
                         const x = pos[i3];
@@ -517,11 +479,9 @@
                 }
             }
 
-            // Quả cầu ảnh tự quay từ từ sang phải
             if (appState === 'sphere' && photoGroup.visible) {
                 photoGroup.rotation.y += 0.0025; 
             }
-
             renderer.render(scene, camera);
         }
     </script>
