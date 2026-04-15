@@ -38,6 +38,8 @@ def ngungon6(request):
 def ngungon7(request):
     return render(request,'ngungon7.html')
 
-@login_required
 def ngungon_8_3(request):
     return render(request,'ngungon_8_3.html')
+
+def landing_page(request):
+    return render(request,'landing_page.html')

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Day Job Experience - Thử nghề trong 1 ngày</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(90deg, #2563eb, #f97316);
+            /* Vendor prefixes cho WebKit */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* Standard properties để tương thích chéo (Fix cảnh báo IDE) */
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-bg {
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.1), transparent),
+                        radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.1), transparent);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">1</div>
+                    <span class="font-bold text-xl tracking-tight">DayJob</span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                    <a href="#problem" class="hover:text-blue-600 transition">Vấn đề</a>
+                    <a href="#how-it-works" class="hover:text-blue-600 transition">Cách hoạt động</a>
+                    <a href="#pricing" class="hover:text-blue-600 transition">Bảng giá</a>
+                </div>
+                <a href="#pricing" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+                    Đăng ký ngay
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 hero-bg overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-xs font-bold tracking-widest uppercase mb-4">
+                Giải pháp định nghiệp 4.0
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+                Bạn chưa biết mình hợp nghề gì? <br/>
+                <span class="gradient-text">Thử ngay trong 1 ngày!</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Trải nghiệm công việc thực tế tại doanh nghiệp chỉ trong 1 ngày – 
+                Giúp bạn hiểu rõ bản thân trước khi đưa ra quyết định nghề nghiệp quan trọng.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#pricing" class="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:-translate-y-1 transition duration-300">
+                    Đăng ký thử nghề ngay
+                </a>
+                <button class="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold text-lg hover:bg-slate-50 transition duration-300">
+                    Khám phá các ngành hot
+                </button>
+            </div>
+            
+            <div class="mt-16 relative">
+                <div class="absolute inset-0 bg-blue-400 blur-[120px] opacity-20 rounded-full"></div>
+                <div class="relative bg-white p-2 rounded-2xl shadow-2xl border border-slate-100 max-w-4xl mx-auto">
+                    <div class="bg-slate-900 rounded-xl aspect-video flex items-center justify-center text-slate-500 overflow-hidden">
+                         <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="Workplace" class="opacity-60 object-cover w-full h-full">
+                         <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 text-white text-center">
+                                <p class="text-sm font-medium mb-1">Đang kết nối...</p>
+                                <p class="text-2xl font-bold">Sinh viên ↔ Doanh nghiệp</p>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="problem" class="py-20 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 italic">"80% sinh viên chọn sai nghề ít nhất 1 lần"</h2>
+                <p class="text-slate-400">Bạn có đang nằm trong số đó?</p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition">
+                    <i data-lucide="help-circle" class="text-blue-400 mb-4"></i>
+                    <h3 class="font-bold mb-2">Mông lung</h3>
+                    <p class="text-sm text-slate-400">Không biết mình thực sự hợp với ngành gì.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition">
+                    <i data-lucide="trending-up" class="text-blue-400 mb-4"></i>
+                    <h3 class="font-bold mb-2">Chạy theo trend</h3>
+                    <p class="text-sm text-slate-400">Chọn nghề theo số đông hoặc lời khuyên bạn bè.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition">
+                    <i data-lucide="alert-triangle" class="text-blue-400 mb-4"></i>
+                    <h3 class="font-bold mb-2">Thiếu thực tế</h3>
+                    <p class="text-sm text-slate-400">Chỉ học lý thuyết, chưa bao giờ chạm vào công việc thật.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition">
+                    <i data-lucide="clock" class="text-blue-400 mb-4"></i>
+                    <h3 class="font-bold mb-2">Mất thời gian</h3>
+                    <p class="text-sm text-slate-400">Thử sai rồi bắt đầu lại tốn hàng năm trời tuổi trẻ.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="flex-1">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">“1 Day Job Experience” – Giải pháp vàng</h2>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                        Chúng tôi không dạy bạn lý thuyết. Chúng tôi đưa bạn vào "chiến trường" thực sự trong 24h để bạn tự tìm ra câu trả lời cho chính mình.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                            <div class="bg-blue-100 p-1 rounded-full text-blue-600"><i data-lucide="check" size="18"></i></div>
+                            <span class="font-medium text-slate-700">Trải nghiệm công việc thật tại doanh nghiệp</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="bg-blue-100 p-1 rounded-full text-blue-600"><i data-lucide="check" size="18"></i></div>
+                            <span class="font-medium text-slate-700">Làm các task cơ bản của nghề</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="bg-blue-100 p-1 rounded-full text-blue-600"><i data-lucide="check" size="18"></i></div>
+                            <span class="font-medium text-slate-700">Được mentor hướng dẫn trực tiếp 1-1</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex-1 relative">
+                    <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80" class="rounded-3xl shadow-2xl" alt="Job Experience">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 max-w-[240px]">
+                        <p class="text-blue-600 font-bold text-2xl mb-1">100+</p>
+                        <p class="text-sm text-slate-500 font-medium">Doanh nghiệp đối tác sẵn sàng chào đón bạn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-20 bg-blue-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">3 bước để bắt đầu hành trình</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12 relative">
+                <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-blue-200 z-0"></div>
+                
+                <div class="relative z-10 text-center">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg">1</div>
+                    <h3 class="font-bold text-xl mb-3">Đăng ký ngành nghề</h3>
+                    <p class="text-slate-600 text-sm">Chọn lĩnh vực bạn tò tự tò mò: Marketing, Dev, Design...</p>
+                </div>
+                <div class="relative z-10 text-center">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg">2</div>
+                    <h3 class="font-bold text-xl mb-3">Kết nối doanh nghiệp</h3>
+                    <p class="text-slate-600 text-sm">Chúng tôi sắp xếp vị trí phù hợp nhất với trình độ của bạn.</p>
+                </div>
+                <div class="relative z-10 text-center">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg">3</div>
+                    <h3 class="font-bold text-xl mb-3">Trải nghiệm & Nhận Feedback</h3>
+                    <p class="text-slate-600 text-sm">Đi thử nghề và nhận đánh giá chi tiết từ Mentor sau 24h.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Chi phí nhỏ - Tương lai lớn</h2>
+                <p class="text-slate-600">Chọn gói trải nghiệm phù hợp với mục tiêu của bạn</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 bg-white border border-slate-200 rounded-3xl hover:border-blue-500 transition duration-300">
+                    <h3 class="font-bold text-xl mb-2">Gói Cơ Bản</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold">49k</span>
+                        <span class="text-slate-400">/ngày</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> 1 ngày trải nghiệm thực tế</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Tham quan môi trường làm việc</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Làm task cơ bản</li>
+                    </ul>
+                    <button class="w-full py-3 border border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition">Đăng ký ngay</button>
+                </div>
+                <div class="p-8 bg-white border-2 border-blue-600 rounded-3xl shadow-xl relative scale-105">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Phổ biến nhất</div>
+                    <h3 class="font-bold text-xl mb-2">Gói Nâng Cao</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold">99k</span>
+                        <span class="text-slate-400">/ngày</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Tất cả gói Cơ Bản</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Mentor feedback 1-1</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Chứng nhận trải nghiệm</li>
+                    </ul>
+                    <button class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition">Đăng ký ngay</button>
+                </div>
+                <div class="p-8 bg-white border border-slate-200 rounded-3xl hover:border-blue-500 transition duration-300">
+                    <h3 class="font-bold text-xl mb-2">Gói Combo</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold">199k</span>
+                        <span class="text-slate-400">/3 ngành</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Thử sức tại 3 ngành khác nhau</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Báo cáo phân tích thế mạnh</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Ưu tiên kết nối intern</li>
+                    </ul>
+                    <button class="w-full py-3 border border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition">Đăng ký ngay</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <p class="text-slate-600 italic mb-6">“Sau 1 ngày thử nghề marketing, mình nhận ra mình KHÔNG hợp 😅 – tiết kiệm cả 2 năm sai lầm nếu cứ đâm đầu vào học.”</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full"></div>
+                        <div>
+                            <p class="font-bold text-sm">Nguyễn Văn A</p>
+                            <p class="text-xs text-slate-400">Sinh viên năm 2 - UET</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <p class="text-slate-600 italic mb-6">“Trải nghiệm giống intern thật, rất đáng giá! Mình đã tìm thấy đam mê thực sự với Backend AI sau buổi thử này.”</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full"></div>
+                        <div>
+                            <p class="font-bold text-sm">Trần Thị B</p>
+                            <p class="text-xs text-slate-400">Sinh viên năm 3 - NEU</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-blue-600 rounded-[3rem] p-12 text-center text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Đừng chọn nghề bằng may rủi</h2>
+                <p class="text-blue-100 mb-10 text-lg">Hãy thử trước khi quyết định – tương lai của bạn xứng đáng được trải nghiệm kỹ lưỡng.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold hover:bg-blue-50 transition shadow-xl">Đăng ký ngay hôm nay</button>
+                    <button class="px-8 py-4 bg-blue-700 text-white border border-blue-500 rounded-xl font-bold hover:bg-blue-800 transition">Nhận tư vấn miễn phí</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xs">1</div>
+                <span class="font-bold">DayJob Experience</span>
+            </div>
+            <p class="text-slate-400 text-sm">© 2026 1DayJob. Kết nối tương lai.</p>
+            <div class="flex gap-6">
+                <a href="#" class="text-slate-400 hover:text-blue-600"><i data-lucide="facebook" size="20"></i></a>
+                <a href="#" class="text-slate-400 hover:text-blue-600"><i data-lucide="linkedin" size="20"></i></a>
+                <a href="#" class="text-slate-400 hover:text-blue-600"><i data-lucide="instagram" size="20"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Smooth scroll implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
