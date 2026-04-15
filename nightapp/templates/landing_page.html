@@ -24,7 +24,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 relative">
 
     <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,7 +38,7 @@
                     <a href="#how-it-works" class="hover:text-blue-600 transition">Cách hoạt động</a>
                     <a href="#pricing" class="hover:text-blue-600 transition">Bảng giá</a>
                 </div>
-                <a href="#pricing" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeX5dRHWu5N_QE5eClG51jiDINWvNUXJ7NDnLRMUWPixSfLWA/viewform" target="_blank" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">
                     Đăng ký ngay
                 </a>
             </div>
@@ -59,10 +59,10 @@
                 Giúp bạn hiểu rõ bản thân trước khi đưa ra quyết định nghề nghiệp quan trọng.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#pricing" class="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:-translate-y-1 transition duration-300">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeX5dRHWu5N_QE5eClG51jiDINWvNUXJ7NDnLRMUWPixSfLWA/viewform" target="_blank" class="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:-translate-y-1 transition duration-300">
                     Đăng ký thử nghề ngay
                 </a>
-                <button class="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold text-lg hover:bg-slate-50 transition duration-300">
+                <button id="open-modal-btn" class="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold text-lg hover:bg-slate-50 transition duration-300">
                     Khám phá các ngành hot
                 </button>
             </div>
@@ -194,7 +194,7 @@
                         <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Tham quan môi trường làm việc</li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Làm task cơ bản</li>
                     </ul>
-                    <button class="w-full py-3 border border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition">Đăng ký ngay</button>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeX5dRHWu5N_QE5eClG51jiDINWvNUXJ7NDnLRMUWPixSfLWA/viewform" target="_blank" class="block text-center w-full py-3 border border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition">Đăng ký ngay</a>
                 </div>
                 <div class="p-8 bg-white border-2 border-blue-600 rounded-3xl shadow-xl relative scale-105">
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Phổ biến nhất</div>
@@ -208,7 +208,7 @@
                         <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Mentor feedback 1-1</li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Chứng nhận trải nghiệm</li>
                     </ul>
-                    <button class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition">Đăng ký ngay</button>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeX5dRHWu5N_QE5eClG51jiDINWvNUXJ7NDnLRMUWPixSfLWA/viewform" target="_blank" class="block text-center w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition">Đăng ký ngay</a>
                 </div>
                 <div class="p-8 bg-white border border-slate-200 rounded-3xl hover:border-blue-500 transition duration-300">
                     <h3 class="font-bold text-xl mb-2">Gói Combo</h3>
@@ -221,7 +221,7 @@
                         <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Báo cáo phân tích thế mạnh</li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="text-green-500" size="16"></i> Ưu tiên kết nối intern</li>
                     </ul>
-                    <button class="w-full py-3 border border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition">Đăng ký ngay</button>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeX5dRHWu5N_QE5eClG51jiDINWvNUXJ7NDnLRMUWPixSfLWA/viewform" target="_blank" class="block text-center w-full py-3 border border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition">Đăng ký ngay</a>
                 </div>
             </div>
         </div>
@@ -261,7 +261,7 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">Đừng chọn nghề bằng may rủi</h2>
                 <p class="text-blue-100 mb-10 text-lg">Hãy thử trước khi quyết định – tương lai của bạn xứng đáng được trải nghiệm kỹ lưỡng.</p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button class="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold hover:bg-blue-50 transition shadow-xl">Đăng ký ngay hôm nay</button>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeX5dRHWu5N_QE5eClG51jiDINWvNUXJ7NDnLRMUWPixSfLWA/viewform" target="_blank" class="inline-block text-center px-8 py-4 bg-white text-blue-600 rounded-xl font-bold hover:bg-blue-50 transition shadow-xl">Đăng ký ngay hôm nay</a>
                     <button class="px-8 py-4 bg-blue-700 text-white border border-blue-500 rounded-xl font-bold hover:bg-blue-800 transition">Nhận tư vấn miễn phí</button>
                 </div>
             </div>
@@ -283,6 +283,46 @@
         </div>
     </footer>
 
+    <div id="job-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-4">
+        <div id="job-modal-content" class="bg-white rounded-[2rem] w-full max-w-5xl p-8 md:p-10 relative scale-95 transition-transform duration-300 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button id="close-modal-btn" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition">
+                <i data-lucide="x" size="24"></i>
+            </button>
+            
+            <div class="text-center mb-10 mt-4">
+                <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-xs font-bold tracking-widest uppercase mb-3">Top xu hướng 2026</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Các lĩnh vực đang khát nhân lực</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Lựa chọn một trong các nhóm ngành dưới đây để bắt đầu trải nghiệm 1 ngày thử việc thực tế của bạn.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="border border-slate-100 bg-slate-50 rounded-2xl p-6 hover:shadow-lg hover:border-blue-200 transition group cursor-pointer" onclick="window.location.href='#pricing'; document.getElementById('close-modal-btn').click();">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="cpu" size="28"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">Công nghệ & AI (IT)</h3>
+                    <p class="text-slate-600 text-sm mb-4 leading-relaxed">Trở thành kỹ sư Backend, AI Engineer hay Data Analyst. Xây dựng các hệ thống lõi và đón đầu kỷ nguyên AI.</p>
+                    <span class="text-blue-600 font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Chọn ngành này <i data-lucide="arrow-right" size="16"></i></span>
+                </div>
+                <div class="border border-slate-100 bg-slate-50 rounded-2xl p-6 hover:shadow-lg hover:border-orange-200 transition group cursor-pointer" onclick="window.location.href='#pricing'; document.getElementById('close-modal-btn').click();">
+                    <div class="w-14 h-14 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="megaphone" size="28"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">Digital Marketing</h3>
+                    <p class="text-slate-600 text-sm mb-4 leading-relaxed">Sáng tạo content, quản trị chiến dịch quảng cáo, SEO và phân tích hành vi người dùng trên các nền tảng số.</p>
+                    <span class="text-orange-600 font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Chọn ngành này <i data-lucide="arrow-right" size="16"></i></span>
+                </div>
+                <div class="border border-slate-100 bg-slate-50 rounded-2xl p-6 hover:shadow-lg hover:border-purple-200 transition group cursor-pointer" onclick="window.location.href='#pricing'; document.getElementById('close-modal-btn').click();">
+                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="pen-tool" size="28"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">Thiết kế (UI/UX & Graphic)</h3>
+                    <p class="text-slate-600 text-sm mb-4 leading-relaxed">Kiến tạo trải nghiệm người dùng mượt mà (UX/UI) hoặc thiết kế các ấn phẩm truyền thông thị giác bắt mắt.</p>
+                    <span class="text-purple-600 font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Chọn ngành này <i data-lucide="arrow-right" size="16"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
@@ -295,6 +335,55 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // ================= XỬ LÝ MODAL =================
+        const modal = document.getElementById('job-modal');
+        const modalContent = document.getElementById('job-modal-content');
+        const openBtn = document.getElementById('open-modal-btn');
+        const closeBtn = document.getElementById('close-modal-btn');
+
+        // Hàm mở modal
+        function openModal() {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // Timeout siêu nhỏ để browser kịp render display:flex trước khi áp dụng hiệu ứng opacity
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+            
+            // Render lại icon cho chắc chắn vì modal ban đầu bị ẩn
+            lucide.createIcons();
+        }
+
+        // Hàm đóng modal
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            // Đợi hiệu ứng transition chạy xong (300ms theo class duration-300 của Tailwind) rồi mới ẩn thẻ div đi
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+
+        // Lắng nghe sự kiện click
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+
+        // Đóng modal khi bấm ra ngoài khoảng trống (vùng mờ)
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Đóng modal khi ấn nút ESC trên bàn phím
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
         });
     </script>
 </body>
